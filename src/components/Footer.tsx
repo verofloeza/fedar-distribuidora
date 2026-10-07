@@ -32,14 +32,14 @@ export const Footer: React.FC<FooterProps> = ({
       className="bg-[#0F1B2D] text-[#AFC0D2] pt-14 sm:pt-16 pb-10 border-t border-[#1C2C42]"
     >
       <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-20 flex flex-col gap-12">
-        {/* Grilla Principal del Footer */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10">
+        {/* Grilla Principal del Footer (3 Columnas) */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
           {/* Columna 1: Marca & Redes */}
           <div className="flex flex-col gap-3.5">
             <Link href="/" className="hover:opacity-95 transition-opacity">
               <Logo variant="white" />
             </Link>
-            <p className="text-[14px] sm:text-[15px] leading-[1.5] text-[#8EA3B8] max-w-[280px]">
+            <p className="text-[14px] sm:text-[15px] leading-[1.5] text-[#8EA3B8] max-w-[320px]">
               {config.slogan}
             </p>
             <div className="flex items-center gap-2.5 pt-2">
@@ -107,39 +107,14 @@ export const Footer: React.FC<FooterProps> = ({
             </div>
           </div>
 
-          {/* Columna 2: Productos */}
-          <div className="flex flex-col gap-2.5 text-[14px] sm:text-[15px]">
-            <div className="font-semibold text-white mb-1.5 uppercase tracking-wider text-xs font-heading">
-              Líneas de Productos
-            </div>
-            <Link href="/productos" className="hover:text-white transition-colors">
-              Terminales y Punteras
-            </Link>
-            <Link href="/productos" className="hover:text-white transition-colors">
-              Conectores y Borneras
-            </Link>
-            <Link href="/productos" className="hover:text-white transition-colors">
-              Orings y Retenes
-            </Link>
-            <Link href="/productos" className="hover:text-white transition-colors">
-              Abrazaderas y Fijaciones
-            </Link>
-            <Link href="/productos" className="hover:text-white transition-colors">
-              Gaveteros y Módulos Armados
-            </Link>
-            <Link
-              href="/productos"
-              className="text-[#E0A93B] hover:underline font-medium pt-1 inline-flex items-center gap-1"
-            >
-              <span>Ver catálogo completo</span> →
-            </Link>
-          </div>
-
-          {/* Columna 3: Empresa */}
+          {/* Columna 2: Empresa */}
           <div className="flex flex-col gap-2.5 text-[14px] sm:text-[15px]">
             <div className="font-semibold text-white mb-1.5 uppercase tracking-wider text-xs font-heading">
               Empresa y Servicios
             </div>
+            <Link href="/productos" className="hover:text-white transition-colors">
+              Catálogo de Productos
+            </Link>
             <Link href="/nosotros" className="hover:text-white transition-colors">
               Quiénes Somos
             </Link>
@@ -171,7 +146,7 @@ export const Footer: React.FC<FooterProps> = ({
             </button>
           </div>
 
-          {/* Columna 4: Contacto */}
+          {/* Columna 3: Contacto */}
           <div className="flex flex-col gap-3 text-[14px] sm:text-[15px]">
             <div className="font-semibold text-white mb-1 uppercase tracking-wider text-xs font-heading">
               Atención Comercial
