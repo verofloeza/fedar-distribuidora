@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { Phone, MessageSquare, Truck, FileText, UserCheck } from "lucide-react";
-import { COMPANY_DATA } from "@/data/products";
+import { useCompanyConfig } from "@/context/CompanyContext";
 import { useModals } from "@/context/ModalContext";
 
 interface TopBarProps {
@@ -16,6 +16,7 @@ export const TopBar: React.FC<TopBarProps> = ({
   onOpenLoginModal,
 }) => {
   const modals = useModals();
+  const { config } = useCompanyConfig();
 
   const handleOpenPriceList = onOpenPriceListModal || modals.openPriceListModal;
   const handleOpenLogin = onOpenLoginModal || modals.openLoginModal;
@@ -26,23 +27,23 @@ export const TopBar: React.FC<TopBarProps> = ({
         {/* Info Contacto & Envíos */}
         <div className="flex items-center gap-3 sm:gap-6 flex-wrap overflow-hidden py-1">
           <a
-            href={`tel:${COMPANY_DATA.phoneRaw}`}
+            href={`tel:${config.phoneRaw}`}
             className="flex items-center gap-1.5 hover:text-white transition-colors whitespace-nowrap"
           >
             <Phone className="w-3.5 h-3.5 text-[#E0A93B]" />
-            <span>Tel/Fax {COMPANY_DATA.phone}</span>
+            <span>Tel/Fax {config.phone}</span>
           </a>
 
           <span className="hidden sm:inline text-[#3B5474]">|</span>
 
           <a
-            href={COMPANY_DATA.whatsappUrl}
+            href={config.whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-1.5 hover:text-white transition-colors whitespace-nowrap"
           >
             <MessageSquare className="w-3.5 h-3.5 text-[#25D366]" />
-            <span>WhatsApp {COMPANY_DATA.whatsapp}</span>
+            <span>WhatsApp {config.whatsapp}</span>
           </a>
 
           <span className="hidden md:inline text-[#3B5474]">|</span>
@@ -55,13 +56,25 @@ export const TopBar: React.FC<TopBarProps> = ({
 
         {/* Acciones Rápidas */}
         <div className="flex items-center gap-4 sm:gap-7 shrink-0">
-          <Link
-            href="/lista-de-precios"
-            className="flex items-center gap-1 text-white hover:text-[#E0A93B] font-medium transition-colors cursor-pointer text-xs sm:text-[14px]"
-          >
-            <FileText className="w-3.5 h-3.5 text-[#E0A93B]" />
-            <span>Lista de precios</span>
-          </Link>
+          {config.priceListUrl ? (
+            <a
+              href={config.priceListUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1 text-white hover:text-[#E0A93B] font-medium transition-colors cursor-pointer text-xs sm:text-[14px]"
+            >
+              <FileText className="w-3.5 h-3.5 text-[#E0A93B]" />
+              <span>Lista de precios</span>
+            </a>
+          ) : (
+            <Link
+              href="/lista-de-precios"
+              className="flex items-center gap-1 text-white hover:text-[#E0A93B] font-medium transition-colors cursor-pointer text-xs sm:text-[14px]"
+            >
+              <FileText className="w-3.5 h-3.5 text-[#E0A93B]" />
+              <span>Lista de precios</span>
+            </Link>
+          )}
 
           <button
             onClick={handleOpenLogin}

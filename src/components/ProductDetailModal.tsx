@@ -2,7 +2,8 @@
 
 import React from "react";
 import { X, MessageSquare, Check, Layers, Store, ArrowRight, ShieldCheck } from "lucide-react";
-import { ProductItem, COMPANY_DATA } from "@/data/products";
+import { ProductItem } from "@/data/products";
+import { useCompanyConfig } from "@/context/CompanyContext";
 
 interface ProductDetailModalProps {
   product: ProductItem | null;
@@ -15,9 +16,10 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
   onClose,
   onOpenPriceList,
 }) => {
+  const { config } = useCompanyConfig();
   if (!product) return null;
 
-  const productWhatsappUrl = `https://wa.me/${COMPANY_DATA.whatsappNumber}?text=${encodeURIComponent(
+  const productWhatsappUrl = `https://wa.me/${config.whatsappNumber}?text=${encodeURIComponent(
     `Hola FEDAR! Quisiera consultar precios y disponibilidad de la familia ${product.num}. ${product.name}.`
   )}`;
 

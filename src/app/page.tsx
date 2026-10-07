@@ -7,8 +7,13 @@ import { FeaturesBar } from "@/components/FeaturesBar";
 import { ProductsSection } from "@/components/ProductsSection";
 import { CtaSection } from "@/components/CtaSection";
 import { CheckCircle, FileText, ArrowRight, Users2 } from "lucide-react";
+import { useCompanyConfig } from "@/context/CompanyContext";
 
 export default function Home() {
+  const { config } = useCompanyConfig();
+  const priceListHref = config.priceListUrl?.trim() || "/lista-de-precios";
+  const isExternalPriceList = Boolean(config.priceListUrl?.trim());
+
   return (
     <div className="flex flex-col min-h-full">
       {/* 1. Hero Section */}
@@ -60,13 +65,25 @@ export default function Home() {
                 <span>Conocer Más Sobre Nosotros</span>
                 <ArrowRight className="w-4 h-4 text-[#E0A93B]" />
               </Link>
-              <Link
-                href="/lista-de-precios"
-                className="h-13 px-6 rounded-xl bg-white border border-[#CFC9BD] hover:bg-[#F3F1EC] text-[#0F1B2D] font-bold text-center flex items-center justify-center gap-2 transition-all"
-              >
-                <FileText className="w-4 h-4 text-[#8A5F12]" />
-                <span>Solicitar Lista Mayorista</span>
-              </Link>
+              {isExternalPriceList ? (
+                <a
+                  href={priceListHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="h-13 px-6 rounded-xl bg-white border border-[#CFC9BD] hover:bg-[#F3F1EC] text-[#0F1B2D] font-bold text-center flex items-center justify-center gap-2 transition-all"
+                >
+                  <FileText className="w-4 h-4 text-[#8A5F12]" />
+                  <span>Solicitar Lista Mayorista</span>
+                </a>
+              ) : (
+                <Link
+                  href="/lista-de-precios"
+                  className="h-13 px-6 rounded-xl bg-white border border-[#CFC9BD] hover:bg-[#F3F1EC] text-[#0F1B2D] font-bold text-center flex items-center justify-center gap-2 transition-all"
+                >
+                  <FileText className="w-4 h-4 text-[#8A5F12]" />
+                  <span>Solicitar Lista Mayorista</span>
+                </Link>
+              )}
             </div>
           </div>
         </div>

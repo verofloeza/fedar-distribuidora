@@ -17,6 +17,7 @@ import {
   Layers,
   Loader2,
   Lock,
+  Settings,
 } from "lucide-react";
 
 export default function AdminLayout({
@@ -83,6 +84,12 @@ export default function AdminLayout({
       href: "/admin/usuarios",
       label: "Usuarios Admin",
       icon: Users,
+      exact: false,
+    },
+    {
+      href: "/admin/configuracion",
+      label: "Datos Empresa",
+      icon: Settings,
       exact: false,
     },
   ];

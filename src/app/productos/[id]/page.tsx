@@ -17,7 +17,8 @@ import {
   X,
   Share2,
 } from "lucide-react";
-import { ProductItem, COMPANY_DATA, CATEGORIES_LIST } from "@/data/products";
+import { ProductItem, CATEGORIES_LIST } from "@/data/products";
+import { useCompanyConfig } from "@/context/CompanyContext";
 import { useModals } from "@/context/ModalContext";
 
 interface ProductDetailResponse extends ProductItem {
@@ -32,6 +33,7 @@ export default function ProductDetailPage({
   const resolvedParams = use(params);
   const productId = resolvedParams.id;
   const modals = useModals();
+  const { config } = useCompanyConfig();
 
   const [product, setProduct] = useState<ProductDetailResponse | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -140,7 +142,7 @@ export default function ProductDetailPage({
   }
 
   const whatsappMessage = `Hola FEDAR! Quisiera consultar precios mayoristas y disponibilidad del producto: *${product.name}* (Categoría: ${product.category}). Link: ${typeof window !== "undefined" ? window.location.href : ""}`;
-  const whatsappUrl = `https://wa.me/${COMPANY_DATA.whatsappNumber}?text=${encodeURIComponent(
+  const whatsappUrl = `https://wa.me/${config.whatsappNumber}?text=${encodeURIComponent(
     whatsappMessage
   )}`;
 
@@ -356,13 +358,25 @@ export default function ProductDetailPage({
                   <span>Consultar por WhatsApp</span>
                 </a>
 
-                <Link
-                  href="/lista-de-precios"
-                  className="w-full h-10 rounded-xl bg-[#0F2F52] hover:bg-[#0A223C] text-white font-semibold text-xs flex items-center justify-center gap-1.5 transition-all"
-                >
-                  <FileSpreadsheet className="w-4 h-4 text-[#E0A93B]" />
-                  <span>Solicitar lista de precios</span>
-                </Link>
+                {config.priceListUrl ? (
+                  <a
+                    href={config.priceListUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full h-10 rounded-xl bg-[#0F2F52] hover:bg-[#0A223C] text-white font-semibold text-xs flex items-center justify-center gap-1.5 transition-all"
+                  >
+                    <FileSpreadsheet className="w-4 h-4 text-[#E0A93B]" />
+                    <span>Solicitar lista de precios</span>
+                  </a>
+                ) : (
+                  <Link
+                    href="/lista-de-precios"
+                    className="w-full h-10 rounded-xl bg-[#0F2F52] hover:bg-[#0A223C] text-white font-semibold text-xs flex items-center justify-center gap-1.5 transition-all"
+                  >
+                    <FileSpreadsheet className="w-4 h-4 text-[#E0A93B]" />
+                    <span>Solicitar lista de precios</span>
+                  </Link>
+                )}
               </div>
             </div>
 

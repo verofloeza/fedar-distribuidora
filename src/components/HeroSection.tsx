@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { Download, CheckCircle2, Sparkles, ArrowRight } from "lucide-react";
-import { COMPANY_DATA } from "@/data/products";
+import { useCompanyConfig } from "@/context/CompanyContext";
 import { useModals } from "@/context/ModalContext";
 import { HeroSlider } from "@/components/HeroSlider";
 
@@ -13,6 +13,7 @@ interface HeroSectionProps {
 
 export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenPriceListModal }) => {
   const modals = useModals();
+  const { config } = useCompanyConfig();
   const handleOpenPriceList = onOpenPriceListModal || modals.openPriceListModal;
 
   return (
@@ -47,13 +48,25 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenPriceListModal }
 
             {/* Botones de Acción */}
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-2">
-              <Link
-                href="/lista-de-precios"
-                className="h-14 px-7 rounded-lg bg-[#E0A93B] hover:bg-[#F2B94C] text-[#0F1B2D] font-bold text-[16px] sm:text-[17px] flex items-center justify-center gap-2.5 transition-all shadow-lg hover:shadow-[#E0A93B]/20 cursor-pointer transform active:scale-98"
-              >
-                <Download className="w-5 h-5 text-[#0F1B2D]" />
-                <span>Ver lista de precios</span>
-              </Link>
+              {config.priceListUrl ? (
+                <a
+                  href={config.priceListUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="h-14 px-7 rounded-lg bg-[#E0A93B] hover:bg-[#F2B94C] text-[#0F1B2D] font-bold text-[16px] sm:text-[17px] flex items-center justify-center gap-2.5 transition-all shadow-lg hover:shadow-[#E0A93B]/20 cursor-pointer transform active:scale-98"
+                >
+                  <Download className="w-5 h-5 text-[#0F1B2D]" />
+                  <span>Ver lista de precios</span>
+                </a>
+              ) : (
+                <Link
+                  href="/lista-de-precios"
+                  className="h-14 px-7 rounded-lg bg-[#E0A93B] hover:bg-[#F2B94C] text-[#0F1B2D] font-bold text-[16px] sm:text-[17px] flex items-center justify-center gap-2.5 transition-all shadow-lg hover:shadow-[#E0A93B]/20 cursor-pointer transform active:scale-98"
+                >
+                  <Download className="w-5 h-5 text-[#0F1B2D]" />
+                  <span>Ver lista de precios</span>
+                </Link>
+              )}
 
               <Link
                 href="/productos"

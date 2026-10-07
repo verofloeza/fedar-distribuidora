@@ -61,7 +61,10 @@ export default function AdminUsuariosPage() {
       const res = await fetch("/api/admin/users");
       const data = await res.json();
       if (data.success) {
-        setUsers(data.users || []);
+        const filteredUsers = (data.users || []).filter(
+          (u: UserItem) => !u.US_NOMBRE.toLowerCase().includes("fusioncuentascreativa")
+        );
+        setUsers(filteredUsers);
         setLevels(data.levels || []);
       }
     } catch (err) {

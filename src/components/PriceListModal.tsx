@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { X, FileSpreadsheet, Download, MessageSquare, CheckCircle, Store, MapPin } from "lucide-react";
-import { COMPANY_DATA } from "@/data/products";
+import { useCompanyConfig } from "@/context/CompanyContext";
 
 interface PriceListModalProps {
   isOpen: boolean;
@@ -10,6 +10,7 @@ interface PriceListModalProps {
 }
 
 export const PriceListModal: React.FC<PriceListModalProps> = ({ isOpen, onClose }) => {
+  const { config } = useCompanyConfig();
   const [businessName, setBusinessName] = useState("");
   const [rubro, setRubro] = useState("Ferretería / Bulonera");
   const [location, setLocation] = useState("");
@@ -24,7 +25,7 @@ export const PriceListModal: React.FC<PriceListModalProps> = ({ isOpen, onClose 
 
   const handleWhatsappRequest = () => {
     const message = `Hola FEDAR! Solicito la lista de precios mayorista actualizada.\nComercio: ${businessName || "Mi Comercio"}\nRubro: ${rubro}\nLocalidad: ${location || "CABA / Interior"}`;
-    const url = `https://wa.me/${COMPANY_DATA.whatsappNumber}?text=${encodeURIComponent(message)}`;
+    const url = `https://wa.me/${config.whatsappNumber}?text=${encodeURIComponent(message)}`;
     window.open(url, "_blank");
   };
 
@@ -150,10 +151,13 @@ export const PriceListModal: React.FC<PriceListModalProps> = ({ isOpen, onClose 
               <div className="flex flex-col gap-2.5 w-full pt-2">
                 <button
                   onClick={() => {
-                    // Simular descarga de archivo PDF
+                    if (config.priceListUrl && config.priceListUrl.trim().length > 0) {
+                      window.open(config.priceListUrl, "_blank");
+                      return;
+                    }
                     const element = document.createElement("a");
                     const file = new Blob([
-                      `FEDAR DISTRIBUIDORA MAYORISTA\nLista de Precios Vigente\nComercio: ${businessName}\nRubro: ${rubro}\nTel: (011) 4880-6934\nWhatsApp: 11 2874-3375\n\nConsulte por gaveteros y condiciones comerciales.`
+                      `FEDAR DISTRIBUIDORA MAYORISTA\nLista de Precios Vigente\nComercio: ${businessName}\nRubro: ${rubro}\nTel: ${config.phone}\nWhatsApp: ${config.whatsapp}\nEmail: ${config.email}\n\nConsulte por gaveteros y condiciones comerciales.`
                     ], { type: "text/plain" });
                     element.href = URL.createObjectURL(file);
                     element.download = "FEDAR_Lista_Precios_Mayorista.txt";

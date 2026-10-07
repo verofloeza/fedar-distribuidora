@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   X,
   Lock,
@@ -43,6 +43,20 @@ export const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showNewPassword, setShowNewPassword] = useState(false);
 
+  // Si ya tiene sesión iniciada al abrir el modal, redirigir directamente al panel
+  useEffect(() => {
+    if (isOpen) {
+      fetch("/api/auth/me")
+        .then((r) => r.json())
+        .then((data) => {
+          if (data.authenticated) {
+            window.location.href = "/admin";
+          }
+        })
+        .catch(() => {});
+    }
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
   const resetState = () => {
@@ -77,16 +91,13 @@ export const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
 
       if (!res.ok || !data.success) {
         setErrorMsg(data.message || "Usuario o contraseña incorrectos.");
+        setLoading(false);
       } else {
-        setLoggedInUser(data.user?.email || email);
-        setSuccessMsg(`¡Bienvenido/a, ${data.user?.email}! Redirigiendo al Panel de Administración...`);
-        setTimeout(() => {
-          window.location.href = "/admin";
-        }, 900);
+        // Redirigir directamente al panel de administración
+        window.location.href = "/admin";
       }
     } catch (err: any) {
       setErrorMsg("Error de conexión. Por favor intente nuevamente.");
-    } finally {
       setLoading(false);
     }
   };

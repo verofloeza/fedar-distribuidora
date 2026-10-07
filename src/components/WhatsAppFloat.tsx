@@ -1,10 +1,13 @@
 "use client";
 
 import React, { useState } from "react";
-import { COMPANY_DATA } from "@/data/products";
+import { useCompanyConfig } from "@/context/CompanyContext";
 
 export const WhatsAppFloat: React.FC = () => {
   const [showTooltip, setShowTooltip] = useState(false);
+  const { config } = useCompanyConfig();
+
+  if (!config.whatsappUrl) return null;
 
   return (
     <div className="fixed bottom-6 right-6 z-50 flex items-center gap-3">
@@ -16,7 +19,7 @@ export const WhatsAppFloat: React.FC = () => {
       )}
 
       <a
-        href={COMPANY_DATA.whatsappUrl}
+        href={config.whatsappUrl}
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Escribir por WhatsApp a FEDAR Distribuidora"

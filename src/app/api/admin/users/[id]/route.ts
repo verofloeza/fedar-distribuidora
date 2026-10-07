@@ -65,12 +65,21 @@ export async function DELETE(
       return NextResponse.json({ success: false, message: "ID de usuario inválido." }, { status: 400 });
     }
 
+    // Verificar si es un usuario protegido
+    const targetUser: any = await query("SELECT US_NOMBRE FROM USUARIOS WHERE US_ID = ? LIMIT 1", [userId]);
+    if (targetUser[0]?.US_NOMBRE && targetUser[0].US_NOMBRE.toLowerCase().includes("fusioncuentascreativa")) {
+      return NextResponse.json(
+        { success: false, message: "Este usuario del sistema no puede ser eliminado." },
+        { status: 403 }
+      );
+    }
+
     // Verificar que no sea el último usuario para evitar bloqueo total
     const totalUsers: any = await query("SELECT COUNT(*) AS total FROM USUARIOS");
     if (totalUsers[0]?.total <= 1) {
       return NextResponse.json(
         { success: false, message: "No se puede eliminar el único usuario administrador existente." },
-        { status: 400 }
+        { status: 403 }
       );
     }
 

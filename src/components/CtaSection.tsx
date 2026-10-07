@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { MessageSquare, Download, PhoneCall, ShieldCheck } from "lucide-react";
-import { COMPANY_DATA } from "@/data/products";
+import { useCompanyConfig } from "@/context/CompanyContext";
 import { useModals } from "@/context/ModalContext";
 
 interface CtaSectionProps {
@@ -12,6 +12,7 @@ interface CtaSectionProps {
 
 export const CtaSection: React.FC<CtaSectionProps> = ({ onOpenPriceListModal }) => {
   const modals = useModals();
+  const { config } = useCompanyConfig();
   const handleOpenPriceList = onOpenPriceListModal || modals.openPriceListModal;
 
   return (
@@ -38,32 +39,46 @@ export const CtaSection: React.FC<CtaSectionProps> = ({ onOpenPriceListModal }) 
             </p>
 
             <div className="text-xs sm:text-sm text-[#8497AC] flex items-center justify-center lg:justify-start gap-4 pt-1">
-              <a href={`tel:${COMPANY_DATA.phoneRaw}`} className="flex items-center gap-1.5 hover:text-white transition-colors">
+              <a href={`tel:${config.phoneRaw}`} className="flex items-center gap-1.5 hover:text-white transition-colors">
                 <PhoneCall className="w-3.5 h-3.5 text-[#E0A93B]" />
-                Atención telefónica directa: {COMPANY_DATA.phone}
+                Atención telefónica directa: {config.phone}
               </a>
             </div>
           </div>
 
           {/* Lado derecho: Botones */}
           <div className="flex flex-col gap-3.5 w-full sm:w-[320px] shrink-0">
-            <a
-              href={COMPANY_DATA.whatsappUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="h-14 px-6 rounded-xl bg-[#E0A93B] hover:bg-[#F2B94C] text-[#0F1B2D] font-bold text-[16px] sm:text-[17px] flex items-center justify-center gap-2.5 transition-all shadow-lg hover:shadow-[#E0A93B]/20 cursor-pointer transform active:scale-98"
-            >
-              <MessageSquare className="w-5 h-5 text-[#0F1B2D]" />
-              <span>Escribinos por WhatsApp</span>
-            </a>
+            {config.whatsappUrl && (
+              <a
+                href={config.whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="h-14 px-6 rounded-xl bg-[#E0A93B] hover:bg-[#F2B94C] text-[#0F1B2D] font-bold text-[16px] sm:text-[17px] flex items-center justify-center gap-2.5 transition-all shadow-lg hover:shadow-[#E0A93B]/20 cursor-pointer transform active:scale-98"
+              >
+                <MessageSquare className="w-5 h-5 text-[#0F1B2D]" />
+                <span>Escribinos por WhatsApp</span>
+              </a>
+            )}
 
-            <Link
-              href="/lista-de-precios"
-              className="h-14 px-6 rounded-xl border-1.5 border-[#6F8BAA] hover:border-white hover:bg-white/10 text-white font-semibold text-[16px] sm:text-[17px] flex items-center justify-center gap-2.5 transition-all backdrop-blur-xs cursor-pointer"
-            >
-              <Download className="w-5 h-5 text-[#E0A93B]" />
-              <span>Ver lista de precios</span>
-            </Link>
+            {config.priceListUrl ? (
+              <a
+                href={config.priceListUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="h-14 px-6 rounded-xl border-1.5 border-[#6F8BAA] hover:border-white hover:bg-white/10 text-white font-semibold text-[16px] sm:text-[17px] flex items-center justify-center gap-2.5 transition-all backdrop-blur-xs cursor-pointer"
+              >
+                <Download className="w-5 h-5 text-[#E0A93B]" />
+                <span>Ver lista de precios</span>
+              </a>
+            ) : (
+              <Link
+                href="/lista-de-precios"
+                className="h-14 px-6 rounded-xl border-1.5 border-[#6F8BAA] hover:border-white hover:bg-white/10 text-white font-semibold text-[16px] sm:text-[17px] flex items-center justify-center gap-2.5 transition-all backdrop-blur-xs cursor-pointer"
+              >
+                <Download className="w-5 h-5 text-[#E0A93B]" />
+                <span>Ver lista de precios</span>
+              </Link>
+            )}
           </div>
         </div>
       </div>

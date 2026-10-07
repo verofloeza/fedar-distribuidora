@@ -16,9 +16,10 @@ import {
   ShieldCheck,
   FileSpreadsheet
 } from "lucide-react";
-import { COMPANY_DATA } from "@/data/products";
+import { useCompanyConfig } from "@/context/CompanyContext";
 
 export default function ContactoPage() {
+  const { config } = useCompanyConfig();
   const [name, setName] = useState("");
   const [businessName, setBusinessName] = useState("");
   const [phone, setPhone] = useState("");
@@ -35,7 +36,7 @@ export default function ContactoPage() {
 
   const handleWhatsappSend = () => {
     const text = `Hola FEDAR! Me contacto desde la web.\nNombre: ${name || "-"}\nComercio: ${businessName || "-"}\nLocalidad: ${location || "-"}\nInterés: ${interest}\nMensaje: ${message || "Quisiera más información sobre sus productos y condiciones comerciales."}`;
-    const url = `https://wa.me/${COMPANY_DATA.whatsappNumber}?text=${encodeURIComponent(text)}`;
+    const url = `https://wa.me/${config.whatsappNumber}?text=${encodeURIComponent(text)}`;
     window.open(url, "_blank");
   };
 
@@ -256,7 +257,7 @@ export default function ContactoPage() {
 
               <div className="flex flex-col gap-4 text-sm">
                 <a
-                  href={`tel:${COMPANY_DATA.phoneRaw}`}
+                  href={`tel:${config.phoneRaw}`}
                   className="flex items-center gap-3.5 text-[#0F1B2D] hover:text-[#12355B] transition-colors p-2 rounded-xl hover:bg-[#FAF9F6]"
                 >
                   <div className="w-10 h-10 rounded-xl bg-[#FAF9F6] border border-[#E0A93B]/40 text-[#8A5F12] flex items-center justify-center shrink-0">
@@ -264,12 +265,12 @@ export default function ContactoPage() {
                   </div>
                   <div>
                     <div className="text-xs text-[#8A96A5] font-semibold uppercase">Teléfono / Fax</div>
-                    <div className="font-bold text-base">{COMPANY_DATA.phone}</div>
+                    <div className="font-bold text-base">{config.phone}</div>
                   </div>
                 </a>
 
                 <a
-                  href={COMPANY_DATA.whatsappUrl}
+                  href={config.whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-3.5 text-[#0F1B2D] hover:text-[#1F8F4E] transition-colors p-2 rounded-xl hover:bg-[#FAF9F6]"
@@ -279,12 +280,12 @@ export default function ContactoPage() {
                   </div>
                   <div>
                     <div className="text-xs text-[#8A96A5] font-semibold uppercase">WhatsApp Oficial</div>
-                    <div className="font-bold text-base">{COMPANY_DATA.whatsapp}</div>
+                    <div className="font-bold text-base">{config.whatsapp}</div>
                   </div>
                 </a>
 
                 <a
-                  href={`mailto:${COMPANY_DATA.email}`}
+                  href={`mailto:${config.email}`}
                   className="flex items-center gap-3.5 text-[#0F1B2D] hover:text-[#12355B] transition-colors p-2 rounded-xl hover:bg-[#FAF9F6]"
                 >
                   <div className="w-10 h-10 rounded-xl bg-[#FAF9F6] border border-[#DDD8CE] text-[#12355B] flex items-center justify-center shrink-0">
@@ -292,7 +293,7 @@ export default function ContactoPage() {
                   </div>
                   <div>
                     <div className="text-xs text-[#8A96A5] font-semibold uppercase">Correo Electrónico</div>
-                    <div className="font-bold text-sm">{COMPANY_DATA.email}</div>
+                    <div className="font-bold text-sm">{config.email}</div>
                   </div>
                 </a>
 
@@ -302,7 +303,7 @@ export default function ContactoPage() {
                   </div>
                   <div>
                     <div className="text-xs text-[#8A96A5] font-semibold uppercase">Horario de Atención</div>
-                    <div className="font-semibold text-sm text-[#0F1B2D]">{COMPANY_DATA.hours}</div>
+                    <div className="font-semibold text-sm text-[#0F1B2D]">{config.hours}</div>
                   </div>
                 </div>
               </div>

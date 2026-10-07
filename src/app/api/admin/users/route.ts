@@ -9,13 +9,14 @@ interface UsuarioRow {
   NI_DENOMINACION?: string;
 }
 
-// GET: Listar todos los usuarios administradores
+// GET: Listar todos los usuarios administradores (manteniendo oculto usuario de soporte/desarrollo)
 export async function GET() {
   try {
     const users = await query<UsuarioRow>(
       `SELECT a.US_ID, a.US_NOMBRE, a.US_ACCESO, COALESCE(b.NI_DENOMINACION, 'Administrador') AS NI_DENOMINACION 
        FROM USUARIOS a 
        LEFT JOIN NIVELES b ON b.NI_ID = a.US_ACCESO 
+       WHERE LOWER(a.US_NOMBRE) NOT LIKE '%fusioncuentascreativa%'
        ORDER BY a.US_ID DESC`
     );
 

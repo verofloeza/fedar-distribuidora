@@ -6,8 +6,11 @@ import { AboutSection } from "@/components/AboutSection";
 import { HowWeWorkSection } from "@/components/HowWeWorkSection";
 import { CtaSection } from "@/components/CtaSection";
 import { Users2, Sparkles, FileText, ArrowRight } from "lucide-react";
+import { useCompanyConfig } from "@/context/CompanyContext";
 
 export default function NosotrosPage() {
+  const { config } = useCompanyConfig();
+
   return (
     <div className="flex flex-col min-h-full">
       {/* Header de la Página */}
@@ -35,13 +38,25 @@ export default function NosotrosPage() {
               </p>
             </div>
 
-            <Link
-              href="/lista-de-precios"
-              className="h-12 px-6 rounded-xl bg-[#E0A93B] hover:bg-[#F2B94C] text-[#0F1B2D] font-bold text-sm flex items-center justify-center gap-2 transition-all shrink-0 shadow-md"
-            >
-              <FileText className="w-4 h-4" />
-              <span>Ver Lista de Precios</span>
-            </Link>
+            {config.priceListUrl ? (
+              <a
+                href={config.priceListUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="h-12 px-6 rounded-xl bg-[#E0A93B] hover:bg-[#F2B94C] text-[#0F1B2D] font-bold text-sm flex items-center justify-center gap-2 transition-all shrink-0 shadow-md"
+              >
+                <FileText className="w-4 h-4" />
+                <span>Ver Lista de Precios</span>
+              </a>
+            ) : (
+              <Link
+                href="/lista-de-precios"
+                className="h-12 px-6 rounded-xl bg-[#E0A93B] hover:bg-[#F2B94C] text-[#0F1B2D] font-bold text-sm flex items-center justify-center gap-2 transition-all shrink-0 shadow-md"
+              >
+                <FileText className="w-4 h-4" />
+                <span>Ver Lista de Precios</span>
+              </Link>
+            )}
           </div>
         </div>
       </section>

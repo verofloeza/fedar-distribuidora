@@ -13,11 +13,14 @@ import {
   PhoneCall,
   Clock,
   Sparkles,
-  ArrowRight
+  ArrowRight,
+  ExternalLink
 } from "lucide-react";
-import { COMPANY_DATA, CATEGORIES_LIST } from "@/data/products";
+import { CATEGORIES_LIST } from "@/data/products";
+import { useCompanyConfig } from "@/context/CompanyContext";
 
 export default function ListaDePreciosPage() {
+  const { config } = useCompanyConfig();
   const [businessName, setBusinessName] = useState("");
   const [rubro, setRubro] = useState("Ferretería / Bulonera");
   const [location, setLocation] = useState("");
@@ -31,11 +34,17 @@ export default function ListaDePreciosPage() {
   };
 
   const handleDownloadFile = () => {
+    // Si hay una URL configurada en el panel admin para la lista de precios, abrirla directamente
+    if (config.priceListUrl && config.priceListUrl.trim().length > 0) {
+      window.open(config.priceListUrl, "_blank");
+      return;
+    }
+
     const content = `=====================================================
 FEDAR DISTRIBUIDORA MAYORISTA
 Accesorios para ferreterías, buloneras y repuesteros
-Tel/Fax: ${COMPANY_DATA.phone} | WhatsApp: ${COMPANY_DATA.whatsapp}
-Email: ${COMPANY_DATA.email}
+Tel/Fax: ${config.phone} | WhatsApp: ${config.whatsapp}
+Email: ${config.email}
 =====================================================
 
 LISTA DE PRECIOS MAYORISTA VIGENTE
@@ -52,7 +61,7 @@ CONDICIONES COMERCIALES:
 - Despacho sin cargo en expresos y transportes de CABA.
 - Reposición periódica por corredor en zonas de cobertura.
 
-Para recibir el archivo Excel detallado con listas de códigos y descuentos especiales por volumen, comuníquese directamente a nuestro WhatsApp oficial: ${COMPANY_DATA.whatsappUrl}
+Para recibir el archivo detallado con listas de códigos y descuentos especiales por volumen, comuníquese directamente a nuestro WhatsApp oficial: ${config.whatsappUrl}
 =====================================================`;
 
     const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
@@ -67,7 +76,7 @@ Para recibir el archivo Excel detallado con listas de códigos y descuentos espe
 
   const handleWhatsappRequest = () => {
     const message = `Hola FEDAR! Solicito la lista de precios mayorista actualizada.\nComercio: ${businessName || "Mi Comercio"}\nRubro: ${rubro}\nLocalidad: ${location || "CABA / Interior"}\nContacto: ${phone || "-"}`;
-    const url = `https://wa.me/${COMPANY_DATA.whatsappNumber}?text=${encodeURIComponent(message)}`;
+    const url = `https://wa.me/${config.whatsappNumber}?text=${encodeURIComponent(message)}`;
     window.open(url, "_blank");
   };
 
@@ -312,24 +321,24 @@ Para recibir el archivo Excel detallado con listas de códigos y descuentos espe
 
               <div className="flex flex-col gap-2 pt-2 border-t border-[#1C3656] text-sm">
                 <a
-                  href={`tel:${COMPANY_DATA.phoneRaw}`}
+                  href={`tel:${config.phoneRaw}`}
                   className="flex items-center gap-2 text-white hover:text-[#E0A93B] transition-colors"
                 >
                   <PhoneCall className="w-4 h-4 text-[#E0A93B]" />
-                  <span>Tel/Fax: {COMPANY_DATA.phone}</span>
+                  <span>Tel/Fax: {config.phone}</span>
                 </a>
                 <a
-                  href={COMPANY_DATA.whatsappUrl}
+                  href={config.whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 text-[#25D366] hover:underline"
                 >
                   <MessageSquare className="w-4 h-4" />
-                  <span>WhatsApp: {COMPANY_DATA.whatsapp}</span>
+                  <span>WhatsApp: {config.whatsapp}</span>
                 </a>
                 <div className="flex items-center gap-2 text-[#A5BCD4] text-xs pt-1">
                   <Clock className="w-3.5 h-3.5 text-[#E0A93B]" />
-                  <span>{COMPANY_DATA.hours}</span>
+                  <span>{config.hours}</span>
                 </div>
               </div>
             </div>

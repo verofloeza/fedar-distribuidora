@@ -13,11 +13,13 @@ import {
   ChevronsLeft,
   ChevronsRight,
 } from "lucide-react";
-import { CATEGORIES_LIST, COMPANY_DATA, ProductItem } from "@/data/products";
+import { CATEGORIES_LIST, ProductItem } from "@/data/products";
+import { useCompanyConfig } from "@/context/CompanyContext";
 import { useModals } from "@/context/ModalContext";
 
 export default function ProductosPage() {
   const modals = useModals();
+  const { config } = useCompanyConfig();
   const catalogTopRef = useRef<HTMLDivElement>(null);
 
   const [productsList, setProductsList] = useState<ProductItem[]>(CATEGORIES_LIST);
@@ -205,13 +207,25 @@ export default function ProductosPage() {
             </h1>
           </div>
 
-          <Link
-            href="/lista-de-precios"
-            className="font-semibold text-[14px] sm:text-[15px] text-[#0F1B2D] hover:text-[#0B4A90] border-b-2 border-[#E0A93B] pb-0.5 w-fit flex items-center gap-1.5 transition-all group shrink-0"
-          >
-            <span>Ver lista de precios mayorista</span>
-            <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1 text-[#0F1B2D] group-hover:text-[#0B4A90]" />
-          </Link>
+          {config.priceListUrl ? (
+            <a
+              href={config.priceListUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-[14px] sm:text-[15px] text-[#0F1B2D] hover:text-[#0B4A90] border-b-2 border-[#E0A93B] pb-0.5 w-fit flex items-center gap-1.5 transition-all group shrink-0"
+            >
+              <span>Ver lista de precios mayorista</span>
+              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1 text-[#0F1B2D] group-hover:text-[#0B4A90]" />
+            </a>
+          ) : (
+            <Link
+              href="/lista-de-precios"
+              className="font-semibold text-[14px] sm:text-[15px] text-[#0F1B2D] hover:text-[#0B4A90] border-b-2 border-[#E0A93B] pb-0.5 w-fit flex items-center gap-1.5 transition-all group shrink-0"
+            >
+              <span>Ver lista de precios mayorista</span>
+              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1 text-[#0F1B2D] group-hover:text-[#0B4A90]" />
+            </Link>
+          )}
         </div>
 
         {/* Panel de Búsqueda y Filtros de Categorías/Subcategorías */}
@@ -517,19 +531,37 @@ export default function ProductosPage() {
               ))}
 
               {/* Tarjeta CTA: VER EL CATÁLOGO COMPLETO / LISTA DE PRECIOS */}
-              <Link
-                href="/lista-de-precios"
-                className="bg-[#0F2F52] hover:bg-[#0A223C] rounded-xl p-6 sm:p-7 flex flex-col justify-between text-white transition-all duration-300 shadow-md hover:shadow-xl group min-h-[220px]"
-              >
-                <div className="font-heading font-extrabold text-[28px] sm:text-[32px] lg:text-[34px] leading-[0.98] uppercase text-white tracking-tight pt-1">
-                  Ver lista de precios completa
-                </div>
+              {config.priceListUrl ? (
+                <a
+                  href={config.priceListUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-[#0F2F52] hover:bg-[#0A223C] rounded-xl p-6 sm:p-7 flex flex-col justify-between text-white transition-all duration-300 shadow-md hover:shadow-xl group min-h-[220px]"
+                >
+                  <div className="font-heading font-extrabold text-[28px] sm:text-[32px] lg:text-[34px] leading-[0.98] uppercase text-white tracking-tight pt-1">
+                    Ver lista de precios completa
+                  </div>
 
-                <div className="flex items-center justify-between text-xs sm:text-sm font-medium text-[#C9D6E3] pt-4 border-t border-white/15 group-hover:text-white transition-colors">
-                  <span>Descargar en Excel y PDF</span>
-                  <ArrowRight className="w-4.5 h-4.5 text-[#E0A93B] group-hover:translate-x-1.5 transition-transform shrink-0" />
-                </div>
-              </Link>
+                  <div className="flex items-center justify-between text-xs sm:text-sm font-medium text-[#C9D6E3] pt-4 border-t border-white/15 group-hover:text-white transition-colors">
+                    <span>Abrir en nueva pestaña</span>
+                    <ArrowRight className="w-4.5 h-4.5 text-[#E0A93B] group-hover:translate-x-1.5 transition-transform shrink-0" />
+                  </div>
+                </a>
+              ) : (
+                <Link
+                  href="/lista-de-precios"
+                  className="bg-[#0F2F52] hover:bg-[#0A223C] rounded-xl p-6 sm:p-7 flex flex-col justify-between text-white transition-all duration-300 shadow-md hover:shadow-xl group min-h-[220px]"
+                >
+                  <div className="font-heading font-extrabold text-[28px] sm:text-[32px] lg:text-[34px] leading-[0.98] uppercase text-white tracking-tight pt-1">
+                    Ver lista de precios completa
+                  </div>
+
+                  <div className="flex items-center justify-between text-xs sm:text-sm font-medium text-[#C9D6E3] pt-4 border-t border-white/15 group-hover:text-white transition-colors">
+                    <span>Descargar en Excel y PDF</span>
+                    <ArrowRight className="w-4.5 h-4.5 text-[#E0A93B] group-hover:translate-x-1.5 transition-transform shrink-0" />
+                  </div>
+                </Link>
+              )}
             </div>
 
             {/* Paginador Inferior Completo */}
@@ -642,15 +674,17 @@ export default function ProductosPage() {
             </div>
           </div>
 
-          <a
-            href={COMPANY_DATA.whatsappUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="h-12 px-7 rounded-xl bg-[#25D366] hover:bg-[#20BA5A] text-white font-bold text-sm flex items-center justify-center gap-2 transition-all shrink-0 shadow-md"
-          >
-            <MessageSquare className="w-4.5 h-4.5" />
-            <span>Pedir por WhatsApp</span>
-          </a>
+          {config.whatsappUrl && (
+            <a
+              href={config.whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="h-12 px-7 rounded-xl bg-[#25D366] hover:bg-[#20BA5A] text-white font-bold text-sm flex items-center justify-center gap-2 transition-all shrink-0 shadow-md"
+            >
+              <MessageSquare className="w-4.5 h-4.5" />
+              <span>Pedir por WhatsApp</span>
+            </a>
+          )}
         </div>
       </section>
     </div>

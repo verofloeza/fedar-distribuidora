@@ -14,6 +14,7 @@ import {
   Mail,
   Loader2,
   AlertCircle,
+  Settings,
 } from "lucide-react";
 
 export default function AdminDashboard() {
@@ -168,7 +169,7 @@ export default function AdminDashboard() {
       </div>
 
       {/* Navigation Sections Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {/* Sección 1: Productos */}
         <div className="bg-white rounded-2xl p-6 border border-[#DDD8CE] shadow-sm flex flex-col justify-between">
           <div>
@@ -177,11 +178,11 @@ export default function AdminDashboard() {
                 <Package className="w-5 h-5" />
               </div>
               <h3 className="font-heading font-bold text-lg text-[#0F1B2D]">
-                Catálogo de Productos
+                Catálogo
               </h3>
             </div>
             <p className="text-xs sm:text-sm text-[#5A6472] leading-relaxed mb-4">
-              Crea nuevos artículos, actualiza títulos, descripciones, categorías, precios y fotos principales.
+              Crea nuevos artículos, actualiza títulos, descripciones, categorías y fotos.
             </p>
           </div>
           <Link
@@ -201,11 +202,11 @@ export default function AdminDashboard() {
                 <Images className="w-5 h-5" />
               </div>
               <h3 className="font-heading font-bold text-lg text-[#0F1B2D]">
-                Slides de Portada
+                Slides Portada
               </h3>
             </div>
             <p className="text-xs sm:text-sm text-[#5A6472] leading-relaxed mb-4">
-              Configura las imágenes destacadas del carrusel de inicio, orden de visualización y estados de publicación.
+              Configura las imágenes destacadas del carrusel de inicio y publicación.
             </p>
           </div>
           <Link
@@ -225,11 +226,11 @@ export default function AdminDashboard() {
                 <Users className="w-5 h-5" />
               </div>
               <h3 className="font-heading font-bold text-lg text-[#0F1B2D]">
-                Usuarios y Accesos
+                Usuarios Admin
               </h3>
             </div>
             <p className="text-xs sm:text-sm text-[#5A6472] leading-relaxed mb-4">
-              Crea nuevos usuarios administradores, modifica correos y actualiza contraseñas de forma segura.
+              Crea nuevos usuarios, modifica correos y actualiza contraseñas.
             </p>
           </div>
           <Link
@@ -237,6 +238,30 @@ export default function AdminDashboard() {
             className="w-full py-2.5 px-4 rounded-xl bg-[#FAF9F6] hover:bg-[#12355B] hover:text-white border border-[#DDD8CE] text-[#0F1B2D] font-bold text-xs sm:text-sm flex items-center justify-between transition-all"
           >
             <span>Ir a Usuarios</span>
+            <ChevronRight className="w-4 h-4" />
+          </Link>
+        </div>
+
+        {/* Sección 4: Datos Empresa */}
+        <div className="bg-white rounded-2xl p-6 border border-[#DDD8CE] shadow-sm flex flex-col justify-between">
+          <div>
+            <div className="flex items-center gap-3 mb-3">
+              <div className="w-10 h-10 rounded-xl bg-[#1D4A7A] text-white flex items-center justify-center">
+                <Settings className="w-5 h-5" />
+              </div>
+              <h3 className="font-heading font-bold text-lg text-[#0F1B2D]">
+                Datos Empresa
+              </h3>
+            </div>
+            <p className="text-xs sm:text-sm text-[#5A6472] leading-relaxed mb-4">
+              Modifica teléfono fijo, WhatsApp, link de lista de precios, email, local y redes.
+            </p>
+          </div>
+          <Link
+            href="/admin/configuracion"
+            className="w-full py-2.5 px-4 rounded-xl bg-[#FAF9F6] hover:bg-[#12355B] hover:text-white border border-[#DDD8CE] text-[#0F1B2D] font-bold text-xs sm:text-sm flex items-center justify-between transition-all"
+          >
+            <span>Configurar Datos</span>
             <ChevronRight className="w-4 h-4" />
           </Link>
         </div>
