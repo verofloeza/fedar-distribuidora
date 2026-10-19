@@ -19,7 +19,7 @@ const INITIAL_FALLBACK_SLIDES: HeroSlideItem[] = [
     id: "slide-organizadores",
     image: "https://fedardistribuidora.com.ar/portada/EVITA%20SOLDADURA%20(1).jpg",
     title: "PRACTICOS ORGANIZADORES PARA TODOS LOS ARTICULOS",
-    subtitle: "Sistema Mostrador",
+    subtitle: "",
     badge: "+1.500 ferreterías y buloneras activas",
     linkUrl: "/productos",
   },
@@ -27,7 +27,7 @@ const INITIAL_FALLBACK_SLIDES: HeroSlideItem[] = [
     id: "slide-exhibidor",
     image: "https://fedardistribuidora.com.ar/portada/54%20PLASTICO%201%20(4)%20(1)%20(3)%20(1)%20(1).jpg",
     title: "EXHIBIDOR INCLUIDO EN CADA GAVETERO",
-    subtitle: "Organización de Mostrador",
+    subtitle: "",
     badge: "Exhibidor incluido con el surtido",
     linkUrl: "/productos",
   },
@@ -35,7 +35,7 @@ const INITIAL_FALLBACK_SLIDES: HeroSlideItem[] = [
     id: "slide-visita",
     image: "https://fedardistribuidora.com.ar/portada/54%20PLASTICO%201%20(4)%20(1)%20(1).jpg",
     title: "VISITA PERIODICA DEL VENDEDOR",
-    subtitle: "Atención Personalizada",
+    subtitle: "",
     badge: "Reposición periódica por corredor",
     linkUrl: "/productos",
   },
@@ -43,7 +43,7 @@ const INITIAL_FALLBACK_SLIDES: HeroSlideItem[] = [
     id: "slide-surtido",
     image: "https://fedardistribuidora.com.ar/portada/vacio%20(1).jpg",
     title: "SURTIDO DE MEDIDAS Y MODELOS",
-    subtitle: "Stock Permanente",
+    subtitle: "",
     badge: "Stock permanente para entrega inmediata",
     linkUrl: "/productos",
   },
@@ -141,9 +141,6 @@ export const HeroSlider: React.FC = () => {
           <Layers className="w-4 h-4 sm:w-5 sm:h-5 text-[#E0A93B]" />
         </div>
         <div className="flex flex-col min-w-0 pr-1">
-          <div className="text-[10px] sm:text-[11px] uppercase tracking-wider text-[#A5BCD4] font-semibold">
-            {currentSlide.subtitle || "Sistema Mostrador"}
-          </div>
           <div className="text-[12px] sm:text-[13.5px] font-bold text-white tracking-wide leading-tight">
             {currentSlide.title || "Organizador de Mostrador"}
           </div>
@@ -159,11 +156,10 @@ export const HeroSlider: React.FC = () => {
             return (
               <div
                 key={slide.id}
-                className={`absolute inset-0 flex items-center justify-center p-3 transition-all duration-700 ease-in-out ${
-                  isActive
+                className={`absolute inset-0 flex items-center justify-center p-3 transition-all duration-700 ease-in-out ${isActive
                     ? "opacity-100 scale-100 z-10 pointer-events-auto"
                     : "opacity-0 scale-95 pointer-events-none z-0"
-                }`}
+                  }`}
               >
                 <Link
                   href={slide.linkUrl || "/productos"}
@@ -226,11 +222,10 @@ export const HeroSlider: React.FC = () => {
                       goToSlide(idx);
                     }}
                     aria-label={`Ir al slide ${idx + 1}`}
-                    className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
-                      isActive
+                    className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${isActive
                         ? "w-6 bg-[#E0A93B]"
                         : "w-2 bg-white/40 hover:bg-white/70"
-                    }`}
+                      }`}
                   />
                 );
               })}

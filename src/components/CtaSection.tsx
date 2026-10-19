@@ -31,11 +31,11 @@ export const CtaSection: React.FC<CtaSectionProps> = ({ onOpenPriceListModal }) 
             </div>
 
             <h2 className="font-heading font-extrabold text-[32px] sm:text-[44px] lg:text-[52px] leading-[1.05] text-white uppercase tracking-tight">
-              ¿Tenés ferretería, bulonera o repuestera?
+              ¿TENÉS FERRETERÍA, BULONERA O CASA DE REPUESTOS?
             </h2>
 
             <p className="text-[16px] sm:text-[18px] text-[#C9D6E3] leading-[1.55]">
-              Pedí la lista de precios actualizada, solicitá cotización para tu comercio o coordiná la visita de un corredor para armar tu gavetero.
+              Pedí información, cotización, asesoramiento o coordiná la visita de un corredor sin compromiso al (011) 4880-6934 o al WhatsApp 11-2874-3375 y un representante de ventas te va a brindar todo lo que necesites.
             </p>
 
             <div className="text-xs sm:text-sm text-[#8497AC] flex items-center justify-center lg:justify-start gap-4 pt-1">

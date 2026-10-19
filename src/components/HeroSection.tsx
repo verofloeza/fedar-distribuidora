@@ -37,13 +37,13 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenPriceListModal }
 
             {/* Titular */}
             <h1 className="font-heading font-extrabold text-[38px] sm:text-[54px] lg:text-[62px] leading-[1.02] text-white tracking-tight uppercase">
-              Accesorios, terminales y repuestos para tu mostrador.
+              ¡Con FEDAR venda fácil, venda mejor!
             </h1>
 
             {/* Descripción */}
             <p className="text-[16px] sm:text-[18px] lg:text-[19px] leading-[1.55] text-[#C9D6E3] font-normal">
-              Gaveteros armados con stock de alta rotación, reposición periódica por corredor y envíos a todo el país.
-              Simplificá las compras de tu ferretería, bulonera o repuestera.
+              Los gaveteros son un stock inicial ideal para tu negocio (ORGANIZADOR + EXHIBIDOR + ARTÍCULOS).<br />
+              Están armados exactamente con las medidas de mayor rotación. La gran ventaja es que, una vez que lo tenés, para reponer solo comprás la medida que te hace falta… ¡no tenés que volver a comprar la estructura del gavetero!
             </p>
 
             {/* Botones de Acción */}
@@ -81,15 +81,15 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenPriceListModal }
             <div className="pt-3 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs sm:text-sm text-[#A5BCD4]">
               <div className="flex items-center gap-1.5">
                 <CheckCircle2 className="w-4 h-4 text-[#E0A93B]" />
-                <span>Stock inmediato garantizado</span>
+                <span>Visita periodica del corredor</span>
               </div>
               <div className="flex items-center gap-1.5">
                 <CheckCircle2 className="w-4 h-4 text-[#E0A93B]" />
-                <span>Visita de corredor en tu zona</span>
+                <span>Stock permanente</span>
               </div>
               <div className="flex items-center gap-1.5">
                 <CheckCircle2 className="w-4 h-4 text-[#E0A93B]" />
-                <span>Factura A y B</span>
+                <span>Envios a todo el país</span>
               </div>
             </div>
           </div>

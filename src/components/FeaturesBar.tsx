@@ -7,23 +7,23 @@ export const FeaturesBar: React.FC = () => {
   const features = [
     {
       icon: PackageCheck,
-      title: "Stock permanente",
-      description: "Artículos y medidas clave siempre disponibles para entrega inmediata.",
+      title: "Stock permanente y fácil reposición",
+      description: "Artículos y medidas siempre disponibles para entrega inmediata.",
     },
     {
       icon: Users,
       title: "Atención personalizada",
-      description: "Corredores en calle para CABA y GBA, asesoramiento telefónico y WhatsApp.",
+      description: "Visita periodica del corredor en CABA Y GBA, y asesoramiento de nuestro dpto. de ventas vía telefónica o WhatsApp.",
     },
     {
       icon: FileSpreadsheet,
-      title: "Lista de precios clara",
-      description: "Actualizaciones periódicas, sin sorpresas, con descuentos por volumen.",
+      title: "Lista de precios",
+      description: "Siempre actualizada para que puedas consultarla o descargarla.",
     },
     {
       icon: Truck,
       title: "Envíos a todo el país",
-      description: "Despachos rápidos por el expreso o transporte que elijas.",
+      description: "Hacemos envíos a todo el país por el transporte que nos designes.",
     },
   ];
 

@@ -26,7 +26,7 @@ export default function Home() {
       <ProductsSection />
 
       {/* 4. Banner Destacado: Sobre Nosotros & Gaveteros */}
-      <section className="bg-white border-y border-[#DDD8CE] py-14 sm:py-18">
+      {/*<section className="bg-white border-y border-[#DDD8CE] py-14 sm:py-18">
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-20">
           <div className="bg-[#FAF9F6] border border-[#DDD8CE] rounded-3xl p-8 sm:p-12 lg:p-14 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-8 flex flex-col gap-4">
@@ -87,7 +87,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </section>*/}
 
       {/* 5. CTA Section */}
       <CtaSection />
